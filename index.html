@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102b50">
+  <title>AI News Pakistan | Pakistan, World, AI & Technology</title>
+  <style>
+    :root {
+      --navy: #102b50;
+      --blue: #1d4778;
+      --green: #0b8060;
+      --paper: #f3f6fa;
+      --ink: #182334;
+      --muted: #66758a;
+      --line: #e1e7ef;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans Arabic", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .topbar {
+      background: #0a1e38;
+      color: #dce8f7;
+      padding: 8px 16px;
+      font-size: 12px;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(135deg, var(--navy), #1d4778);
+      color: white;
+      padding: 25px 16px 22px;
+      text-align: center;
+    }
+    .brand {
+      margin: 0;
+      font-size: clamp(27px, 7vw, 40px);
+      letter-spacing: -.8px;
+    }
+    .tagline { margin: 9px 0 0; color: #d8e5f5; font-size: 14px; }
+    .header-actions {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 17px;
+      flex-wrap: wrap;
+    }
+    .language-btn {
+      border: 1px solid #a9c0dc;
+      background: transparent;
+      color: white;
+      border-radius: 20px;
+      padding: 7px 13px;
+      font-size: 12px;
+    }
+    nav {
+      background: #173b65;
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 11px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      box-shadow: 0 3px 10px #071a3020;
+    }
+    nav button {
+      border: 0;
+      border-radius: 18px;
+      padding: 9px 13px;
+      color: white;
+      background: transparent;
+      font-size: 13px;
+    }
+    nav button.active, nav button:hover { background: white; color: var(--navy); }
+    main { max-width: 1000px; margin: auto; padding: 22px 15px 35px; }
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    h2 { margin: 0; color: var(--navy); font-size: 22px; }
+    .demo-label {
+      background: #fff3d6;
+      color: #805400;
+      padding: 6px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .search-wrap { margin: 15px 0 19px; }
+    #search {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
+      background: white;
+      font-size: 15px;
+    }
+    #search:focus { border-color: #3975b5; box-shadow: 0 0 0 3px #3975b51c; }
+    .featured {
+      background: linear-gradient(120deg, #e2efff, #f7fbff);
+      border: 1px solid #d5e5f7;
+      border-radius: 13px;
+      padding: 17px;
+      margin-bottom: 20px;
+    }
+    .featured small { color: var(--green); font-weight: bold; }
+    .featured h3 { color: var(--navy); margin: 8px 0; font-size: 20px; }
+    .featured p { color: #4b5c70; line-height: 1.6; margin: 0; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .news-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px #102b500c;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-art {
+      min-height: 100px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 34px;
+      background: linear-gradient(135deg, #1c4778, #16856b);
+    }
+    .news-card:nth-child(3n+2) .card-art { background: linear-gradient(135deg, #614b9b, #2876a8); }
+    .news-card:nth-child(3n) .card-art { background: linear-gradient(135deg, #8b4a37, #bd873d); }
+    .card-body { padding: 13px; display: flex; flex-direction: column; flex: 1; }
+    .category { color: var(--green); font-size: 11px; font-weight: bold; text-transform: uppercase; }
+    .news-card h3 { margin: 7px 0; color: var(--navy); font-size: 16px; line-height: 1.35; }
+    .news-card p { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.55; flex: 1; }
+    .read-btn {
+      align-self: flex-start;
+      background: var(--navy);
+      color: white;
+      border: 0;
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-size: 12px;
+    }
+    .empty {
+      display: none;
+      text-align: center;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 25px;
+      color: var(--muted);
+    }
+    .about {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 24px;
+      line-height: 1.7;
+    }
+    .about h2 { margin-bottom: 8px; }
+    footer {
+      background: #0a1e38;
+      color: #dce8f7;
+      text-align: center;
+      padding: 22px 15px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: #071a30b8;
+      padding: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.show { display: flex; }
+    .modal-box {
+      width: min(100%, 560px);
+      max-height: 85vh;
+      overflow: auto;
+      background: white;
+      border-radius: 13px;
+      padding: 20px;
+    }
+    .modal-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .close-btn { border: 0; background: #edf2f7; border-radius: 50%; width: 34px; height: 34px; font-size: 20px; }
+    #modal-title { color: var(--navy); }
+    #modal-text { line-height: 1.75; color: #455468; }
+    @media (max-width: 560px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .card-art { min-height: 115px; }
+      nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      nav button { white-space: nowrap; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Independent news learning project • Sample content only</div>
+
+  <header>
+    <h1 class="brand">AI News Pakistan</h1>
+    <p class="tagline">Pakistan • World • Artificial Intelligence • Technology</p>
+    <div class="header-actions">
+      <button class="language-btn" id="language-toggle" type="button">اردو / English</button>
+    </div>
+  </header>
+
+  <nav aria-label="News categories">
+    <button class="active" data-category="All" type="button">Home</button>
+    <button data-category="Pakistan" type="button">Pakistan</button>
+    <button data-category="World" type="button">World</button>
+    <button data-category="AI" type="button">AI News</button>
+    <button data-category="Technology" type="button">Technology</button>
+  </nav>
+
+  <main>
+    <div class="section-heading">
+      <h2 id="latest-heading">Latest News | تازہ خبریں</h2>
+      <span class="demo-label">DEMO CONTENT — NOT LIVE NEWS</span>
+    </div>
+
+    <section class="featured">
+      <small>WELCOME • خوش آمدید</small>
+      <h3 id="welcome-title">Your daily destination for Pakistan and technology news</h3>
+      <p id="welcome-text">This is your first website project. The stories below are sample placeholders to help you test the design. Replace them with verified news and source links before publishing.</p>
+    </section>
+
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Search news... خبریں تلاش کریں" aria-label="Search news">
+    </div>
+
+    <section class="news-grid" id="news-container" aria-live="polite"></section>
+    <div class="empty" id="empty-message">No matching stories found. کوئی خبر نہیں ملی۔</div>
+
+    <section class="about">
+      <h2>About AI News Pakistan</h2>
+      <p>AI News Pakistan is a beginner news website project covering Pakistan, world affairs, artificial intelligence and technology. Always verify facts, publish the original source, and show the date of each real news story.</p>
+      <p dir="rtl">یہ ایک ابتدائی نمونہ ویب سائٹ ہے۔ یہاں موجود خبریں فرضی مثالیں ہیں، حقیقی تازہ خبریں نہیں۔ اصل خبر شائع کرنے سے پہلے معتبر ذرائع سے تصدیق ضرور کریں۔</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2026 AI News Pakistan</div>
+    <div>Pakistan • World • AI • Technology</div>
+    <div>Contact: add-your-email@example.com (replace this sample address)</div>
+  </footer>
+
+  <div class="modal" id="article-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-top">
+        <span class="category" id="modal-category"></span>
+        <button class="close-btn" id="close-modal" type="button" aria-label="Close">×</button>
+      </div>
+      <h2 id="modal-title"></h2>
+      <p id="modal-text"></p>
+      <p><small>Sample demo story. Add a verified source and publication date for real news.</small></p>
+    </div>
+  </div>
+
+  <script>
+    // These are sample stories, not current or verified news.
+    const news = [
+      {
+        category: "Pakistan",
+        icon: "🇵🇰",
+        title: "Pakistan: Digital Skills and Technology",
+        urdu: "پاکستان میں ڈیجیٹل مہارتیں سیکھنے اور ٹیکنالوجی کے استعمال کے بارے میں ایک تعارفی مثال۔",
+        english: "A sample introduction to digital skills and the use of technology in Pakistan.",
+        detail: "This is placeholder content for your website layout. Before publishing a real report, add confirmed facts, the publication date, and a link to a trustworthy original source."
+      },
+      {
+        category: "AI",
+        icon: "🤖",
+        title: "Understanding Artificial Intelligence",
+        urdu: "مصنوعی ذہانت ایسے کمپیوٹر نظاموں سے متعلق ہے جو مختلف کاموں میں مدد کر سکتے ہیں۔",
+        english: "Artificial intelligence describes computer systems designed to help with tasks such as language, images and pattern recognition.",
+        detail: "This is an educational sample, not breaking news. For a real AI news article, confirm the announcement on the organisation's official website and link to it."
+      },
+      {
+        category: "World",
+        icon: "🌍",
+        title: "How Technology Connects the World",
+        urdu: "انٹرنیٹ اور ڈیجیٹل ٹیکنالوجی دنیا بھر کے لوگوں کو معلومات کے تبادلے میں مدد دیتی ہے۔",
+        english: "The internet and digital tools help people around the world communicate and share information.",
+        detail: "This sample explains a general topic. Replace it with a dated, fact-checked world news report and identify the original publisher."
+      },
+      {
+        category: "Technology",
+        icon: "💻",
+        title: "A Beginner's Guide to Web Development",
+        urdu: "HTML ویب صفحے کا ڈھانچہ، CSS اس کا ڈیزائن اور JavaScript اس میں کام کرنے والے فیچرز شامل کرتی ہے۔",
+        english: "HTML provides page structure, CSS controls its appearance, and JavaScript adds interactive features.",
+        detail: "This is a learning example for your first website. It is not a current technology news report."
+      },
+      {
+        category: "Pakistan",
+        icon: "📱",
+        title: "Learning Digital Tools",
+        urdu: "موبائل فون کے ذریعے بھی ویب ڈویلپمنٹ کی بنیادی مشق کی جا سکتی ہے۔",
+        english: "A smartphone can be used to practise the basics of web development.",
+        detail: "This sample is intended to demonstrate a second card in the Pakistan category. Add a real source if you turn it into a news story."
+      },
+      {
+        category: "AI",
+        icon: "🧠",
+        title: "AI: Opportunities and Responsible Use",
+        urdu: "AI استعمال کرتے وقت معلومات کی تصدیق، رازداری اور ذمہ دارانہ استعمال اہم ہیں۔",
+        english: "When using AI, checking information, protecting privacy and using tools responsibly are important.",
+        detail: "This is general educational content. Do not present it as a newly announced event."
+      }
+    ];
+
+    let currentCategory = "All";
+    let urduMode = false;
+
+    const container = document.getElementById("news-container");
+    const searchInput = document.getElementById("search");
+    const emptyMessage = document.getElementById("empty-message");
+
+    function renderNews() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      const filtered = news.filter(item => {
+        const categoryMatch = currentCategory === "All" || item.category === currentCategory;
+        const text = (item.title + " " + item.urdu + " " + item.english + " " + item.category).toLowerCase();
+        return categoryMatch && text.includes(query);
+      });
+
+      container.innerHTML = "";
+
+      filtered.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "news-card";
+
+        const art = document.createElement("div");
+        art.className = "card-art";
+        art.textContent = item.icon;
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const category = document.createElement("span");
+        category.className = "category";
+        category.textContent = item.category;
+
+        const title = document.createElement("h3");
+        title.textContent = item.title;
+
+        const summary = document.createElement("p");
+        summary.textContent = urduMode ? item.urdu : item.english;
+
+        const button = document.createElement("button");
+        button.className = "read-btn";
+        button.type = "button";
+        button.textContent = urduMode ? "مزید پڑھیں" : "Read more";
+        button.addEventListener("click", () => openArticle(item));
+
+        body.append(category, title, summary, button);
+        card.append(art, body);
+        container.appendChild(card);
+      });
+
+      emptyMessage.style.display = filtered.length ? "none" : "block";
+    }
+
+    function openArticle(item) {
+      document.getElementById("modal-category").textContent = item.category;
+      document.getElementById("modal-title").textContent = item.title;
+      document.getElementById("modal-text").textContent =
+        item.detail + (urduMode ? " یہ صرف نمونہ مواد ہے۔" : "");
+      document.getElementById("article-modal").classList.add("show");
+    }
+
+    function closeArticle() {
+      document.getElementById("article-modal").classList.remove("show");
+    }
+
+    document.querySelectorAll("nav button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("nav button").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        currentCategory = button.dataset.category;
+        renderNews();
+      });
+    });
+
+    searchInput.addEventListener("input", renderNews);
+    document.getElementById("close-modal").addEventListener("click", closeArticle);
+    document.getElementById("article-modal").addEventListener("click", event => {
+      if (event.target.id === "article-modal") closeArticle();
+    });
+
+    document.getElementById("language-toggle").addEventListener("click", () => {
+      urduMode = !urduMode;
+      document.getElementById("latest-heading").textContent =
+        urduMode ? "تازہ خبریں" : "Latest News | تازہ خبریں";
+      document.getElementById("welcome-title").textContent =
+        urduMode ? "پاکستان اور ٹیکنالوجی کی خبروں کے لیے آپ کی ویب سائٹ" :
+        "Your daily destination for Pakistan and technology news";
+      document.getElementById("welcome-text").textContent =
+        urduMode ? "یہ آپ کا پہلا ویب سائٹ پروجیکٹ ہے۔ نیچے دی گئی خبریں صرف ڈیزائن کی مشق کے لیے نمونے ہیں۔ اصل خبر شائع کرنے سے پہلے معتبر ذرائع سے تصدیق کریں۔" :
+        "This is your first website project. The stories below are sample placeholders to help you test the design. Replace them with verified news and source links before publishing.";
+      renderNews();
+    });
+
+    renderNews();
+  </script>
+</body>
+</html>
